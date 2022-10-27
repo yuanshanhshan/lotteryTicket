@@ -1,0 +1,23 @@
+{
+    "dependencies": {
+        "@chainlink/contracts": "^0.5.1",
+        "hardhat": "^2.12.0"
+    },
+    "scripts": {
+        "build-contracts": "sol-merger \"./contracts/*.sol\" ./build"
+    },
+    "devDependencies": {
+        "@nomiclabs/hardhat-etherscan": "^3.0.3",
+        "@nomiclabs/hardhat-waffle": "^2.0.3",
+        "@openzeppelin/contracts": "^4.7.3",
+        "@openzeppelin/contracts-upgradeable": "^4.7.0",
+        "@openzeppelin/hardhat-upgrades": "^1.17.0",
+        "@openzeppelin/test-helpers": "^0.5.16",
+        "chai": "^4.3.6",
+        "dotenv": "^16.0.0",
+        "hardhat-gas-reporter": "^1.0.8",
+        "prettier-plugin-solidity": "^1.0.0-dev.23",
+        "sol-merger": "^4.1.1",
+        "solidity-coverage": "^0.7.20"
+    }
+}
