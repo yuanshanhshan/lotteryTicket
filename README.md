@@ -22,31 +22,23 @@
 
 ` npx hardhat run .\scripts\testnet\deploy.rinkeby.js --network rinkeby`
 
-
-
 ## Interact with Contract
 
 ` npx hardhat run .\scripts\testnet\interaction.rinkeby.js --network rinkeby `
 
 ## Detail
 
-| Name               | Description                                                 | Address                                    | network |     |
-| ------------------ | ----------------------------------------------------------- | ------------------------------------------ | ------- | --- |
-| LotteryTicket.sol  | main contract                                               | 0x115A23e775A3D6ac61368e16baA7033bFF7721Bf | rinkeby |     |
-| DaiToken.sol       | mock  ERC20 token                                           | 0x7fC673ecE3b71b72A88AFAB070FEdB81da6eaa1c | rinkeby |     |
-| Math.sol           | A tool contract with chainklink oracle for random function. |                                            |         |     |
-| ILotteryTicket.sol |                                                             |                                            |         |     |
-| IMath.sol          |                                                             |                                            |         |     |
-
-
+| Name               | Description                                                 | Address                                    | network |                  |
+| ------------------ | ----------------------------------------------------------- | ------------------------------------------ | ------- | ---------------- |
+| LotteryTicket.sol  | main contract                                               | 0x115A23e775A3D6ac61368e16baA7033bFF7721Bf | rinkeby | Goerli  verified |
+| DaiToken.sol       | mock  ERC20 token                                           | 0x7fC673ecE3b71b72A88AFAB070FEdB81da6eaa1c | rinkeby |                  |
+| Math.sol           | A tool contract with chainklink oracle for random function. |                                            |         |                  |
+| ILotteryTicket.sol |                                                             |                                            |         |                  |
+| IMath.sol          |                                                             |                                            |         |                  |
 
 ## Interface and plantuml
 
-
-
 ![](./docs/imgs/Snipaste_2022-10-27_23-33-04.png)
-
-
 
 ```plantuml
 @startuml
@@ -62,42 +54,42 @@
 
 class LotteryTicket {
     ' -- inheritance --
-	{abstract}ReentrancyGuardUpgradeable
-	{abstract}AccessControlUpgradeable
-	{abstract}UUPSUpgradeable
+    {abstract}ReentrancyGuardUpgradeable
+    {abstract}AccessControlUpgradeable
+    {abstract}UUPSUpgradeable
 
     ' -- usingFor --
-	{abstract}📚CountersUpgradeable for [[CountersUpgradeable.Counter]]
-	{abstract}📚SafeMathUpgradeable for [[uint256]]
+    {abstract}📚CountersUpgradeable for [[CountersUpgradeable.Counter]]
+    {abstract}📚SafeMathUpgradeable for [[uint256]]
 
     ' -- vars --
-	+[[CountersUpgradeable.Counter]] _activityId
-	+{static}[[bytes32]] UPGRADER_ROLE
-	+{static}[[bytes32]] MINTER_ROLE
-	+{static}[[bytes32]] VAULT_ROLE
-	+[[uint256]] fee
-	+[[address]] Dai
-	+[[address]] math
-	+[[address]] platform
-	+[[mapping uint256=>Activity ]] activityMap
-	+[[mapping uint256=>mapping address=>UserInf  ]] userMap
-	#[[mapping uint256=>uint256 ]] requestInfoMap
-	+[[mapping uint256=>address ]] winnerMap
+    +[[CountersUpgradeable.Counter]] _activityId
+    +{static}[[bytes32]] UPGRADER_ROLE
+    +{static}[[bytes32]] MINTER_ROLE
+    +{static}[[bytes32]] VAULT_ROLE
+    +[[uint256]] fee
+    +[[address]] Dai
+    +[[address]] math
+    +[[address]] platform
+    +[[mapping uint256=>Activity ]] activityMap
+    +[[mapping uint256=>mapping address=>UserInf  ]] userMap
+    #[[mapping uint256=>uint256 ]] requestInfoMap
+    +[[mapping uint256=>address ]] winnerMap
 
     ' -- methods --
-	+initialize()
-	+setFee()
-	+setMath()
-	+setPlatform()
-	+lauchActivity()
-	+claimRandom()
-	+withdrawERC20()
-	+buyTicket()
-	+claimAsset()
-	+🔍getLuckyCodeAndWinner()
-	#_authorizeUpgrade()
-	+fulfillRandomWords()
-	+🔍getRandomNumber()
+    +initialize()
+    +setFee()
+    +setMath()
+    +setPlatform()
+    +lauchActivity()
+    +claimRandom()
+    +withdrawERC20()
+    +buyTicket()
+    +claimAsset()
+    +🔍getLuckyCodeAndWinner()
+    #_authorizeUpgrade()
+    +fulfillRandomWords()
+    +🔍getRandomNumber()
 
 }
 ' -- inheritance / usingFor --
@@ -122,8 +114,6 @@ LotteryTicket ..[#DarkOliveGreen]|> SafeMathUpgradeable : //for uint256//
 
 使用这种方式能够真随机，但是在成本上确实一个需要考虑的因素。
 
-
-
 ## 用户的购买问题
 
 > 当前的设置中，用户只是针对一个数字进行加注，没有考虑到用户可能会同时买多个数字。
@@ -136,8 +126,6 @@ LotteryTicket ..[#DarkOliveGreen]|> SafeMathUpgradeable : //for uint256//
 
 加上mapping(useraddre=> activityId=> luckyCode=> amount) 就可以了。
 
-
-
 ## 题目中时间问题
 
 > 题目中的同一时间仅支持一个彩票活动存在：未能确定是时间点，还是持续时间。
@@ -148,13 +136,9 @@ LotteryTicket ..[#DarkOliveGreen]|> SafeMathUpgradeable : //for uint256//
 
 > 为了方便测试，代码中随机数是写死，line(130), 注释掉，改成line(128)即可。
 
-
-
 ## Audit
 
 > 代码审计中，只是简单进行了逻辑测试。
-
-
 
 ## 可玩性
 

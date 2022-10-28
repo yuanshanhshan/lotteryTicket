@@ -202,6 +202,6 @@ module.exports = {
   //   currency: "USD",
   // },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: 'QPYP41XP5TR4EUF42TMRQITA9MIS2C5F9T',
   },
 };
